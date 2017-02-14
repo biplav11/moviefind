@@ -9,3 +9,7 @@ body{
 	border: 1px solid #ddd;
 	border-radius: 10px;
 }
+img{
+	width: 100%;
+	height: auto;
+}
