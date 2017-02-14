@@ -21041,21 +21041,28 @@ var AppDispatcher = require('../dispatcher/AppDispatcher.js');
 var AppConstants = require('../constants/AppConstants.js');
 
 var AppActions = {
-
+	searchMovies: function(movie){
+		console.log('Searching for movie: '+ movie.title);
+		AppDispatcher.handleViewAction({
+			actionType: AppConstants.SEARCH_MOVIES,
+			movie: movie
+		});
+	}
 }
 
 module.exports = AppActions;
 
-},{"../constants/AppConstants.js":183,"../dispatcher/AppDispatcher.js":184}],182:[function(require,module,exports){
+},{"../constants/AppConstants.js":184,"../dispatcher/AppDispatcher.js":185}],182:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions.js');
 var AppStore = require('../stores/AppStores.js');
+var SearchForm = require('./SearchForm.js')
 
 var App = React.createClass({displayName: "App",
 	render: function(){
 		return(
 			React.createElement("div", null, 
-				"My Movie App"
+				React.createElement(SearchForm, null)
 			)
 		)
 	}
@@ -21063,12 +21070,45 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions.js":181,"../stores/AppStores.js":186,"react":180}],183:[function(require,module,exports){
+},{"../actions/AppActions.js":181,"../stores/AppStores.js":187,"./SearchForm.js":183,"react":180}],183:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../actions/AppActions.js');
+var AppStore = require('../stores/AppStores.js');
+
+var SearchForm = React.createClass({displayName: "SearchForm",
+	render: function(){
+		return(
+			React.createElement("div", {className: "search-form"}, 
+				React.createElement("h1", {className: "text-center"}, "Search For A movie"), 
+				React.createElement("form", {onSubmit: this.onSubmit}, 
+					React.createElement("div", {className: "form-group"}, 
+						React.createElement("input", {type: "text", className: "form-control", ref: "title", placeholder: "Enter the movie title"})
+					), 
+					React.createElement("button", {className: "btn btn-primary btn-block"}, "Search Movies")
+				)
+			)
+		)
+	},
+
+	onSubmit: function(e){
+		e.preventDefault();
+
+		var movie = {
+			title: this.refs.title.value.trim()
+		}
+
+		AppActions.searchMovies(movie);
+	}
+});
+
+module.exports = SearchForm;
+
+},{"../actions/AppActions.js":181,"../stores/AppStores.js":187,"react":180}],184:[function(require,module,exports){
 module.exports = {
 	SEARCH_MOVIES: 'SEARCH_MOVIES'
 }
 
-},{}],184:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -21084,7 +21124,7 @@ var AppDispatcher = assign(new Dispatcher(), {
 
 module.exports = AppDispatcher;
 
-},{"flux":25,"object-assign":27}],185:[function(require,module,exports){
+},{"flux":25,"object-assign":27}],186:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -21092,7 +21132,7 @@ var AppAPI = require('./utils/AppAPI.js');
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
-},{"./components/App":182,"./utils/AppAPI.js":187,"react":180,"react-dom":29}],186:[function(require,module,exports){
+},{"./components/App":182,"./utils/AppAPI.js":188,"react":180,"react-dom":29}],187:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher.js');
 var AppConstants = require('../constants/AppConstants.js');
 var EventEmitter = require('events').EventEmitter;
@@ -21128,7 +21168,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStores;
 
-},{"../constants/AppConstants.js":183,"../dispatcher/AppDispatcher.js":184,"../utils/AppAPI.js":187,"events":1,"object-assign":27}],187:[function(require,module,exports){
+},{"../constants/AppConstants.js":184,"../dispatcher/AppDispatcher.js":185,"../utils/AppAPI.js":188,"events":1,"object-assign":27}],188:[function(require,module,exports){
 var AppActions = require('../actions/AppActions.js');
 
 module.exports = {
@@ -21137,4 +21177,4 @@ module.exports = {
 	}
 }
 
-},{"../actions/AppActions.js":181}]},{},[185]);
+},{"../actions/AppActions.js":181}]},{},[186]);
