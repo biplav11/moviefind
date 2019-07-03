@@ -3,7 +3,7 @@ var AppActions = require('../actions/AppActions');
 module.exports = {
 	searchMovies: function(movie){
 		$.ajax({
-			url: 'http://www.omdbapi.com/?s='+movie.title,
+			url: 'http://www.omdbapi.com/?i=tt3896198&apikey=a53d6a14&s='+movie.title,
 			dataType: 'json',
 			cache: false,
 			success: function(data){
