@@ -3,7 +3,7 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var source = require('vinyl-source-stream');
 
-gulp.task('browserify', function(){
+gulp.task('browserify', function () {
 	browserify('./src/js/main.js')
 		.transform('reactify')
 		.bundle()
@@ -11,7 +11,7 @@ gulp.task('browserify', function(){
 		.pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('copy', function(){
+gulp.task('copy', function () {
 	gulp.src('src/index.html')
 		.pipe(gulp.dest('dist'));
 	gulp.src('src/css/*.*')
@@ -20,6 +20,11 @@ gulp.task('copy', function(){
 		.pipe(gulp.dest('dist/js'));
 })
 
-gulp.task('default', ['browserify', 'copy'], function(){
+gulp.task('default', ['browserify', 'copy'], function () {
 	return gulp.watch('src/**/*.*', ['browserify', 'copy']);
+});
+
+gulp.task('deploy', function () {
+	return gulp.src("./dist/**/*")
+		.pipe(deploy())
 });

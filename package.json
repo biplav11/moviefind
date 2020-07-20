@@ -11,7 +11,8 @@
   "devDependencies": {
     "browserify": "^14.0.0",
     "flux": "^3.1.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
+    "gulp-gh-pages": "^0.5.4",
     "object-assign": "^4.1.1",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
